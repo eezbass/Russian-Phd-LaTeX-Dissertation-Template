@@ -11,6 +11,14 @@
         \IfFontExistsTF{LiberationSerif}{}{\setcounter{fontfamily}{0}}
     }{}
 
+    % Прямые греческие с пакетом unicode-math. В пакете нет опции, позволяющей сделать прямыми только греческие буквы, поэтому значения для них устанавливаются вручную.
+    \ExplSyntaxOn
+      \bool_gset_true:N  \g__um_upGreek_bool
+      \bool_gset_true:N  \g__um_upgreek_bool
+    \ExplSyntaxOff
+
+    \setmathfont{XITS Math}                                % Шрифт для математики
+
     \ifnumequal{\value{fontfamily}}{0}{                    % Семейство шрифтов CMU. Используется как fallback
         \setmonofont{CMU Typewriter Text}                  % моноширинный шрифт
         \newfontfamily\cyrillicfonttt{CMU Typewriter Text} % моноширинный шрифт для кириллицы
@@ -42,8 +50,23 @@
         \newfontfamily\cyrillicfontsf{LiberationSans}      % Шрифт без засечек для кириллицы
     }
 
+    % Объявляется шрифт для кириллицы в математике с пакетом unicode-math
+    % https://tex.stackexchange.com/questions/201239/cant-get-unicode-symbols-in-math-mode
+    \DeclareSymbolFont{cyrletters}{\encodingdefault}{\familydefault}{\seriesdefault}{\shapedefault}
+    \newcommand{\makecyrmathletter}[1]{%
+      \begingroup\lccode`a=#1\lowercase{\endgroup
+      \Umathcode`a}="0 \csname symcyrletters\endcsname\space #1
+    }
+    \count255="409
+    \loop\ifnum\count255<"44F
+      \advance\count255 by 1
+      \makecyrmathletter{\count255}
+    \repeat
+    \SetSymbolFont{cyrletters}{bold}{\encodingdefault}{\familydefault}{\bfdefault}{\shapedefault} % добавляет жирное начертание
+
 \else
     \ifnumequal{\value{usealtfont}}{1}{% Используется pscyr, при наличии
         \IfFileExists{pscyr.sty}{\renewcommand{\rmdefault}{ftm}}{}
     }{}
+    \SetSymbolFont{\encodingdefault letters}{bold}{\encodingdefault}\rmdefault\bfdefault\shapedefault % добавляет жирное начертание кириллице в математике с пакетом mathtext
 \fi

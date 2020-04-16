@@ -58,11 +58,27 @@
 \setlength{\curtextsize}{\f@size pt}
 \makeatother
 
-%%% Кодировки и шрифты %%%
+%%% Кодировки и шрифты [1/2] %%%
 \ifxetexorluatex
     \PassOptionsToPackage{no-math}{fontspec}    % https://tex.stackexchange.com/a/26295/104425
     \usepackage{polyglossia}[2014/05/21]        % Поддержка многоязычности
                                         % (fontspec подгружается автоматически)
+    \usepackage{unicode-math}                   % Выбор шрифтов для математики
+\fi
+
+%%% Таблицы %%%
+\usepackage{longtable,ltcaption} % Длинные таблицы
+\usepackage{multirow,makecell}   % Улучшенное форматирование таблиц
+\usepackage{tabu, tabulary}      % таблицы с автоматически подбирающейся
+                                 % шириной столбцов (tabu обязательно
+                                 % до hyperref вызывать)
+\usepackage{threeparttable}      % автоматический подгон ширины подписи таблицы
+
+%%% Гиперссылки %%%
+\usepackage[russian]{hyperref}[2012/11/06] % Язык необходимо указать в случае подключения перед babel
+
+%%% Кодировки и шрифты [2/2] %%%
+\ifxetexorluatex
 \else
    %%% Решение проблемы копирования текста в буфер кракозябрами
     \ifnumequal{\value{usealtfont}}{0}{}{
@@ -77,6 +93,8 @@
                                 % копировании его в буфер обмена
     }
     \usepackage{textcomp}
+    \usepackage{mathtext} % Позволяет использовать кириллицу в математике
+                          % (подключать до fontenc, но после hyperref)
     \usepackage[T1,T2A]{fontenc}                    % Поддержка русских букв
     \ifnumequal{\value{usealtfont}}{1}{% Используется pscyr, при наличии
         \IfFileExists{pscyr.sty}{\usepackage{pscyr}}{}  % Подключение pscyr
@@ -107,14 +125,6 @@
     \usepackage[dvipsnames, table, hyperref]{xcolor} % Совместимо с tikz
 \fi
 
-%%% Таблицы %%%
-\usepackage{longtable,ltcaption} % Длинные таблицы
-\usepackage{multirow,makecell}   % Улучшенное форматирование таблиц
-\usepackage{tabu, tabulary}      % таблицы с автоматически подбирающейся
-                                 % шириной столбцов (tabu обязательно
-                                 % до hyperref вызывать)
-\usepackage{threeparttable}      % автоматический подгон ширины подписи таблицы
-
 %%% Общее форматирование
 \usepackage{soulutf8}% Поддержка переносоустойчивых подчёркиваний и зачёркиваний
 \usepackage{icomma}  % Запятая в десятичных дробях
@@ -140,9 +150,6 @@
 \usetikzlibrary{shapes.geometric}   % Для примера tikz рисунка
 \usetikzlibrary{shapes.symbols}     % Для примера tikz рисунка
 \usetikzlibrary{arrows}             % Для примера tikz рисунка
-
-%%% Гиперссылки %%%
-\usepackage{hyperref}[2012/11/06]
 
 %%% Изображения %%%
 \usepackage{graphicx}[2014/04/25]   % Подключаем пакет работы с графикой
