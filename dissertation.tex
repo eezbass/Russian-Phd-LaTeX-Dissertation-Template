@@ -20,6 +20,8 @@
 \input{Dissertation/userstyles} % Стили для специфических пользовательских задач
 
 %%% Библиография. Выбор движка для реализации %%%
+% Здесь только проверка установленного ключа. Сама настройка выбора движка
+% размещена в common/setup.tex
 \ifnumequal{\value{bibliosel}}{0}{%
     \input{biblio/predefined}   % Встроенная реализация с загрузкой файла через движок bibtex8
 }{
@@ -33,6 +35,8 @@
 \typeout{AltFont: \arabic{usealtfont}}
 \typeout{Bibliography backend: \arabic{bibliosel}}
 \typeout{Precompile images: \arabic{imgprecompile}}
+% Вывести информацию о версиях используемых библиотек в лог сборки
+\listfiles
 
 %%% Управление компиляцией отдельных частей диссертации %%%
 % Необходимо сначала иметь полностью скомпилированный документ, чтобы все
@@ -52,7 +56,13 @@
 %%% Структура диссертации (ГОСТ Р 7.0.11-2011, 4)
 \include{Dissertation/title}           % Титульный лист
 \include{Dissertation/contents}        % Оглавление
+\ifnumequal{\value{contnumfig}}{1}{}{\counterwithout{figure}{chapter}}
+\ifnumequal{\value{contnumtab}}{1}{}{\counterwithout{table}{chapter}}
 \include{Dissertation/introduction}    % Введение
+\ifnumequal{\value{contnumfig}}{1}{\counterwithout{figure}{chapter}
+}{\counterwithin{figure}{chapter}}
+\ifnumequal{\value{contnumtab}}{1}{\counterwithout{table}{chapter}
+}{\counterwithin{table}{chapter}}
 \include{Dissertation/part1}           % Глава 1
 \include{Dissertation/part2}           % Глава 2
 \include{Dissertation/part3}           % Глава 3

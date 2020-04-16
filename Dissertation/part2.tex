@@ -33,13 +33,14 @@
 \begin{figure}[ht]
     \centerfloat{
         \hfill
-        \subbottom[List-of-Figures entry][Первый подрисунок\label{fig:knuth_2-1}]{%
+        \subcaptionbox[List-of-Figures entry]{Первый подрисунок\label{fig:knuth_2-1}}{%
             \includegraphics[width=0.25\linewidth]{knuth1}}
         \hfill
-        \subbottom[\label{fig:knuth_2-2}]{%
+        \subcaptionbox{\label{fig:knuth_2-2}}{%
             \includegraphics[width=0.25\linewidth]{knuth2}}
         \hfill
-        \subbottom[Третий подрисунок]{%
+        \subcaptionbox{Третий подрисунок, подпись к которому
+        не~помещается на~одной строке}{%
             \includegraphics[width=0.3\linewidth]{example-image-c}}
         \hfill
     }
@@ -67,7 +68,7 @@
 то~для подготовки научных публикаций.
 \begin{figure}[ht]
     \centerfloat{
-        \ifdefmacro{\tikzsetnextfilename}{\tikzsetnextfilename{tikz_example_compiled}}{}% присваиваемое предкомпилированному pdf имя файла
+        \ifdefmacro{\tikzsetnextfilename}{\tikzsetnextfilename{tikz_example_compiled}}{}% присваиваемое предкомпилированному pdf имя файла (не обязательно)
         \input{Dissertation/images/tikz_scheme.tikz}
 
     }
