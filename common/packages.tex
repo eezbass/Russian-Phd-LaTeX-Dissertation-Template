@@ -75,7 +75,8 @@
 \usepackage{threeparttable}      % автоматический подгон ширины подписи таблицы
 
 %%% Гиперссылки %%%
-\usepackage[russian]{hyperref}[2012/11/06] % Язык необходимо указать в случае подключения перед babel
+\usepackage{hyperref}[2012/11/06]        % Необходимо указать язык в случае подключения перед babel
+\PassOptionsToPackage{russian}{hyperref} % Задание опцией вызывает option clash при сборке презентаций
 
 %%% Кодировки и шрифты [2/2] %%%
 \ifxetexorluatex
